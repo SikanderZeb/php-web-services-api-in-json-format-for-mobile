@@ -4,7 +4,7 @@
  *
  * @author		Author: Ayaz Ali Shah. (https://ae.linkedin.com/in/ayazalishah)
  * @git 		https://github.com/iamayaz/php-web-services-api-in-json-format-for-mobile.git
- * @version     0.1
+ * @version       	0.1
  * @Table		ws_user
  */
 class db{
