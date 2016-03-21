@@ -5,7 +5,7 @@
  * @author		Author: Ayaz Ali Shah. (https://ae.linkedin.com/in/ayazalishah)
  * @git 		https://github.com/iamayaz/php-web-services-api-in-json-format-for-mobile.git
  * @version       	0.1
- * @Table		ws_user
+ * @Table		userTable
  */
 class db{
 	// Connection variable is using inside the class methods
@@ -32,7 +32,7 @@ class db{
 		$u_password = md5(md5($u_password.$u_salt));
 		// if email already exists
 		if(!empty($u_email)){
-			$u_email_exist = $this->isExist('u_email', $u_email, 'ws_user');
+			$u_email_exist = $this->isExist('u_email', $u_email, 'userTable');
 			if($u_email_exist==1){
 				$response[] = array('response' => $u_email . ' is already exists');
 				$error = 1;
@@ -40,7 +40,7 @@ class db{
 		}
 		// if mobile number already exists
 		if(!empty($u_mobile)){
-			$u_mobile_exist = $this->isExist('u_mobile', $u_mobile, 'ws_user');
+			$u_mobile_exist = $this->isExist('u_mobile', $u_mobile, 'userTable');
 			if($u_mobile_exist==1){
 				$response[] = array('response' => $u_mobile . ' is already exists');
 				$error = 1;
@@ -48,7 +48,7 @@ class db{
 		}
 		// Execute if there is no error*/
 		if($error == 0){
-			$sql = "INSERT INTO ws_user (u_salt, u_username, u_email, u_mobile, u_password, u_gender, u_language, u_image, date_added) 
+			$sql = "INSERT INTO userTable (u_salt, u_username, u_email, u_mobile, u_password, u_gender, u_language, u_image, date_added) 
 			VALUES ('".$u_salt."','".$u_username."', '".$u_email."', '".$u_mobile."', '".$u_password."', '".$u_gender."', '".$u_language."', '".$u_image."', '".date("Y-m-d H:i:s")."')";
 			$dataInsert = mysqli_query($this->connection,$sql);
 			if($dataInsert){
@@ -88,12 +88,12 @@ class db{
 		
 		if(!empty($u_password)){
 			if($u_email != 'empty'){
-				$Salt = "select * from `ws_user` where `u_email` = '".$u_email."'";
+				$Salt = "select * from `userTable` where `u_email` = '".$u_email."'";
 				$selectSalt = mysqli_query($this->connection,$Salt);
 				$result = mysqli_fetch_assoc($selectSalt); 
 				$userSalt = $result['u_salt'];
 				$u_password = md5(md5($u_password.$userSalt));
-				$user = "select * from `ws_user` where `u_email` = '".$u_email."' and `u_password` = '".$u_password."'";
+				$user = "select * from `userTable` where `u_email` = '".$u_email."' and `u_password` = '".$u_password."'";
 				$selectSalt = mysqli_query($this->connection,$user);
 				if(mysqli_num_rows($selectSalt) > 0){
 					$userResult = mysqli_fetch_assoc($selectSalt);
@@ -107,12 +107,12 @@ class db{
 				}
 			}
 			if($u_mobile != 'empty'){
-				$Salt = "select * from `ws_user` where `u_mobile` = '".$u_mobile."'";
+				$Salt = "select * from `userTable` where `u_mobile` = '".$u_mobile."'";
 				$selectSalt = mysqli_query($this->connection,$Salt);
 				$result = mysqli_fetch_assoc($selectSalt); 
 				$userSalt = $result['u_salt'];
 				$u_password = md5(md5($u_password.$userSalt));
-				$user = "select * from `ws_user` where `u_mobile` = '".$u_mobile."' and `u_password` = '".$u_password."'";
+				$user = "select * from `userTable` where `u_mobile` = '".$u_mobile."' and `u_password` = '".$u_password."'";
 				$selectSalt = mysqli_query($this->connection,$user);
 				if(mysqli_num_rows($selectSalt) > 0){
 					$userResult = mysqli_fetch_assoc($selectSalt);
