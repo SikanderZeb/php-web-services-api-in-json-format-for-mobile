@@ -134,7 +134,12 @@ class db{
 		);
 		echo json_encode($output, JSON_PRETTY_PRINT);
 	}
+	
+	public function delete_user($userID){
+		// here you'll write delete user code
+	}
 }
+
 
 
 ?>
